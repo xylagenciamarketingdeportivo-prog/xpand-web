@@ -62,5 +62,36 @@ historial antiguo, solo se añade.
   [x] Confirmado que el enlace @cubanoprime (.caso__insta en
       css/style.css) ya usaba var(--lima), el verde lima de marca; no
       hizo falta cambio de color, solo se verificó.
+  [x] Desplegado a producción: commit 76d16bc subido a main (push
+      inicial falló con 403 por permisos del usuario
+      amadoracacioperez-ai en el repo; se resolvió añadiéndolo como
+      colaborador con acceso de escritura). GitHub Pages publica la
+      web en xpandyourlimits.es 1-2 min después del push.
+
+------------------------------------------------------------
+2026-09-01 (4)
+
+- Bug reportado: en producción la tarjeta de Amador Acacio rompía el
+  grid de "Casos de éxito" — la foto (formato retrato, 602x1034px)
+  forzaba su columna a crecer mucho más que las otras dos ("grid
+  blowout": el img no tenía min-width:0 y la columna se expandía para
+  ajustarse a su tamaño intrínseco), solapando visualmente las
+  tarjetas de Atleta 02 y 03. Además el recorte a 4:3 no favorecía una
+  foto vertical de cuerpo entero.
+
+- Hecho:
+  [x] Añadido min-width:0 a .caso (css/style.css) para evitar que la
+      imagen fuerce el ancho de su columna del grid.
+  [x] Cambiado .caso__imagen de aspect-ratio 4/3 a 3/4 (recorte
+      vertical, más natural para foto de cuerpo entero) y añadido
+      object-position:center 15% para priorizar cabeza/torso al
+      recortar.
+  [x] Corregidos los atributos width/height del <img> en index.html
+      (eran 640x480, no coincidían con la imagen real ni con el nuevo
+      recorte; ahora 480x640).
+  [x] Verificado visualmente con Playwright (servidor local +
+      screenshot de #casos): las 3 tarjetas quedan alineadas sin
+      solapamientos y la foto se ve bien encuadrada.
+  [x] Cambios subidos a main y publicados en GitHub Pages.
 
 ------------------------------------------------------------
