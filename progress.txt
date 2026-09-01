@@ -95,3 +95,27 @@ historial antiguo, solo se añade.
   [x] Cambios subidos a main y publicados en GitHub Pages.
 
 ------------------------------------------------------------
+2026-09-01 (5)
+
+- El usuario reportó que "sigue viéndose mal" tras el fix anterior,
+  con una captura mostrando el mismo solapamiento. Comprobación:
+  - curl a https://xpandyourlimits.es/css/style.css confirmó que el
+    fix (min-width:0, aspect-ratio 3/4) SÍ está desplegado en
+    producción.
+  - Una captura automatizada con Playwright (Chromium sin caché,
+    viewport 1792px) sobre la URL real de producción muestra las 3
+    tarjetas correctamente alineadas, sin solapamiento.
+  - Conclusión: el navegador del usuario estaba sirviendo una versión
+    cacheada de la página/CSS. Recomendado hacer refresco forzado
+    (Cmd+Shift+R en Mac) para ver la versión corregida.
+
+- Hecho (además, aprovechando el aviso):
+  [x] Sustituida la foto de Amador Acacio por una nueva captura que
+      subió el usuario (encuadre más cerrado, cuerpo completo mejor
+      centrado). Sigue en assets/casos/cubanoprime.jpg, mismo nombre
+      de archivo así que no hace falta tocar el HTML.
+  [x] Verificado en local con Playwright: tarjeta se ve bien, sin
+      solapamientos, con la nueva foto.
+  [x] Subido a main y publicado en GitHub Pages.
+
+------------------------------------------------------------
