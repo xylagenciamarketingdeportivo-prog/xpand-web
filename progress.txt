@@ -119,3 +119,31 @@ historial antiguo, solo se añade.
   [x] Subido a main y publicado en GitHub Pages.
 
 ------------------------------------------------------------
+2026-09-01 (6)
+
+- Hecho — Newsletter:
+  [x] Placeholder del input cambiado de "tu@email.com" a "Rellena tu
+      email".
+  [x] Texto del botón cambiado de "Muy pronto" a "Próximamente".
+  (El formulario sigue disabled a propósito, sigue sin proveedor
+  conectado — ver pendientes del README).
+
+- Hecho — Contacto:
+  [x] Email de contacto cambiado al real:
+      xylagenciamarketingdeportivo@gmail.com (antes era el
+      placeholder hola@xpandyourlimits.es).
+  [x] Añadidos iconos de redes sociales (Instagram, LinkedIn, TikTok,
+      YouTube) en la sección Contacto. Los iconos se sacaron de
+      fuentes fiables (Feather Icons para Instagram/LinkedIn/YouTube,
+      Tabler Icons para TikTok) y se añadieron al sprite
+      assets/iconos.svg con el mismo estilo (stroke, 24x24) que el
+      resto del sitio.
+  [x] Instagram enlaza de verdad a
+      https://www.instagram.com/xylagenciamkdeportivo.
+  [ ] LinkedIn, TikTok y YouTube quedan con href="#" (placeholder) —
+      falta que el usuario confirme las URLs reales de esas cuentas.
+  [x] Verificado visualmente en local con Playwright (capturas de
+      #newsletter y #contacto): todo se ve correcto.
+  [x] Subido a main y publicado en GitHub Pages.
+
+------------------------------------------------------------
