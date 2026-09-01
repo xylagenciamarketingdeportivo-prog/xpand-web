@@ -1,0 +1,66 @@
+PROGRESO — WEB XPAND (xpandyourlimits.es)
+==========================================
+Formato: cada entrada nueva se añade AL FINAL, con fecha. No se borra
+historial antiguo, solo se añade.
+
+------------------------------------------------------------
+2026-09-01
+
+- Estado general: web estática (HTML/CSS/JS plano, sin build ni
+  dependencias) con una sola página (index.html) y secciones ancladas:
+  Servicios, Casos de éxito, Sobre nosotros, Newsletter, Contacto.
+
+- Hecho:
+  [x] Esqueleto inicial de la web (estructura, tokens de marca, menú móvil).
+  [x] Sección Servicios completa: Comunidad, Marca personal, Patrocinios
+      y Marcas (4 servicios).
+  [x] Primer caso de éxito real añadido: Amador Acacio (@cubanoprime),
+      con enlace a Instagram funcionando.
+
+- Pendiente (heredado del README, sigue abierto):
+  [ ] Copy definitivo de cada sección (el texto actual es provisional).
+  [ ] Fotos reales para los casos de éxito (cubanoprime usa fondo
+      placeholder, falta assets/casos/cubanoprime.jpg; quedan además
+      tarjetas de marcador de posición sin fotos ni resultados).
+  [ ] Conectar el formulario de Newsletter a un proveedor (Web3Forms,
+      Mailchimp, Brevo...) — ahora mismo el input está deshabilitado
+      a propósito.
+  [ ] Confirmar el email de contacto real (placeholder actual:
+      hola@xpandyourlimits.es).
+  [ ] Enlace real a Instagram en la sección Contacto y en el pie
+      (hoy es un "#" sin destino).
+  [ ] Ajustar estructura/orden de secciones si aparece una web de
+      referencia.
+  [ ] Retirar la landing antigua en Netlify y, si se confirma, el repo
+      xylagenciamarketingdeportivo-prog/xylagenciamarketingdeportivo.
+  [ ] Migrar DNS del dominio xpandyourlimits.es de Netlify a GitHub
+      Pages (pasos detallados en README.md) y activar "Enforce HTTPS".
+
+------------------------------------------------------------
+2026-09-01 (2)
+
+- Hecho:
+  [x] Foto real de Amador Acacio (@cubanoprime) subida y colocada en la
+      tarjeta de Casos de éxito. Guardada en assets/casos/cubanoprime.jpg
+      (recortada a 4:3 con object-fit:cover). Se sustituye el <div>
+      placeholder por un <img> real en index.html y se ajusta
+      .caso__imagen en css/style.css para que la imagen rellene la
+      tarjeta manteniendo el border-radius.
+
+- Pendiente actualizado:
+  [ ] Fotos reales para las tarjetas "Atleta 02" y "Atleta 03" (siguen
+      con el fondo placeholder, sin foto ni resultado). La de
+      cubanoprime ya está resuelta.
+
+------------------------------------------------------------
+2026-09-01 (3)
+
+- Hecho:
+  [x] Quitada la frase "Esta sección se completa con datos y capturas
+      cuando tengamos el material aprobado." del texto intro de Casos
+      de éxito (index.html) — ya no aplica porque hay un caso real.
+  [x] Confirmado que el enlace @cubanoprime (.caso__insta en
+      css/style.css) ya usaba var(--lima), el verde lima de marca; no
+      hizo falta cambio de color, solo se verificó.
+
+------------------------------------------------------------

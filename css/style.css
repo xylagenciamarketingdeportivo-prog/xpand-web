@@ -142,9 +142,12 @@ em{font-style:normal; color:var(--lima);}
 }
 .caso__insta:hover{text-decoration:underline;}
 .caso__imagen{
+  display:block;
+  width:100%;
   aspect-ratio:4/3;
   border-radius:12px;
   margin-bottom:16px;
+  object-fit:cover;
   background:linear-gradient(135deg, rgba(194,214,46,.35), rgba(255,255,255,.06));
   border:1px solid rgba(255,255,255,.15);
 }
