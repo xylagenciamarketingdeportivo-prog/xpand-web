@@ -176,3 +176,15 @@ historial antiguo, solo se añade.
   Amador Acacio en Casos de éxito.
 
 ------------------------------------------------------------
+2026-09-01 (8)
+
+- Hecho:
+  [x] Icono de LinkedIn en Contacto ahora enlaza a
+      https://www.linkedin.com/company/xpand-your-limits (antes era
+      placeholder href="#").
+  [x] Subido a main y publicado en GitHub Pages.
+
+- Pendiente: TikTok y YouTube siguen con href="#" — falta que el
+  usuario confirme esas URLs.
+
+------------------------------------------------------------
