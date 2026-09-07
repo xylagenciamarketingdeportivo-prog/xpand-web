@@ -188,3 +188,14 @@ historial antiguo, solo se añade.
   usuario confirme esas URLs.
 
 ------------------------------------------------------------
+2026-09-01 (9)
+
+- Hecho:
+  [x] Icono de YouTube en Contacto ahora enlaza a
+      https://www.youtube.com/channel/UC6bpS3TpM4_Z3ivlmCwtrQw (antes
+      era placeholder href="#").
+  [x] Subido a main y publicado en GitHub Pages.
+
+- Pendiente: solo queda TikTok con href="#".
+
+------------------------------------------------------------
