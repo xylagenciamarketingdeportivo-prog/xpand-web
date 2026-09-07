@@ -147,3 +147,32 @@ historial antiguo, solo se añade.
   [x] Subido a main y publicado en GitHub Pages.
 
 ------------------------------------------------------------
+2026-09-01 (7)
+
+- Nueva sección: "Colaboradores xpertos" (id="colaboradores"), justo
+  debajo de Casos de éxito y antes de Sobre nosotros. Son marcas/
+  profesionales que ofrecen descuentos o ventajas a la comunidad de
+  XPAND — distinto de los atletas (Casos de éxito).
+
+- Hecho:
+  [x] Sección añadida en index.html con la misma estructura que Casos
+      de éxito: rejilla--3 con 3 tarjetas placeholder (Colaborador 01,
+      02, 03), fondo oscuro (seguido de Casos de éxito, también
+      oscura, para mantener juntas visualmente las dos secciones de
+      "tarjetas de personas/marcas").
+  [x] Clases CSS nuevas y paralelas a .caso (no reutilizadas, para no
+      acoplar ambas secciones): .colaborador, .colaborador__imagen,
+      .colaborador__enlace — mismo aspect-ratio 3/4 y object-fit:cover
+      que las tarjetas de atletas.
+  [x] Añadido enlace "Colaboradores" al menú de navegación, entre
+      "Casos de éxito" y "Sobre nosotros".
+  [x] Verificado visualmente en local con Playwright: tarjetas
+      alineadas correctamente, sin errores de consola.
+  [x] Subido a main y publicado en GitHub Pages.
+
+- Pendiente: el usuario irá pasando fotos/logos y datos reales de
+  cada colaborador (nombre, descuento/oferta, enlace) poco a poco,
+  para sustituir los 3 placeholders — mismo patrón ya usado con
+  Amador Acacio en Casos de éxito.
+
+------------------------------------------------------------

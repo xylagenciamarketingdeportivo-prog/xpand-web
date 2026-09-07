@@ -154,6 +154,25 @@ em{font-style:normal; color:var(--lima);}
   border:1px solid rgba(255,255,255,.15);
 }
 
+.colaborador{padding:8px; min-width:0;}
+.colaborador__enlace{
+  display:inline-block; margin-top:8px;
+  color:var(--lima); font-weight:700; text-decoration:none; font-size:.9rem;
+}
+.colaborador__enlace:hover{text-decoration:underline;}
+.colaborador__imagen{
+  display:block;
+  width:100%;
+  max-width:100%;
+  aspect-ratio:3/4;
+  border-radius:12px;
+  margin-bottom:16px;
+  object-fit:cover;
+  object-position:center 15%;
+  background:linear-gradient(135deg, rgba(194,214,46,.35), rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.15);
+}
+
 /* ---------------------------------------------------------- valores */
 .lista-valores{
   list-style:none; display:flex; gap:32px; margin-top:32px; flex-wrap:wrap;
