@@ -199,3 +199,39 @@ historial antiguo, solo se añade.
 - Pendiente: solo queda TikTok con href="#".
 
 ------------------------------------------------------------
+2026-09-16
+
+- Hecho:
+  [x] Icono de TikTok en Contacto ahora enlaza a
+      https://www.tiktok.com/@xpandyourlimits_ (era el último href="#").
+      Todas las redes sociales quedan conectadas.
+  [x] Quitada la tarjeta de Amador Acacio (@cubanoprime) de Casos de
+      éxito, a petición del usuario. Borrada también su foto
+      assets/casos/cubanoprime.jpg (recuperable desde el historial de
+      git, commit 3c293cc).
+  [x] Casos de éxito rediseñado como carrusel tipo review: tarjetas
+      con cita, foto pequeña circular (64px, borde lima), nombre y
+      @instagram opcional. Se mueven solas de izquierda a derecha
+      (40px/s), de borde a borde de la pantalla con difuminado en los
+      laterales, y se pausan al pasar el ratón.
+      - HTML: .carrusel > .carrusel__pista > article.caso. Para añadir
+        un atleta basta con otro <article class="caso">; la foto real
+        va como <img class="caso__foto" ...> en lugar del <div>.
+      - js/main.js clona las tarjetas hasta cubrir el ancho visible y
+        duplica el conjunto para que el bucle no tenga saltos; recalcula
+        al cambiar el ancho de la ventana.
+      - Sin JS o con "reducir movimiento" activado no se anima: queda
+        una fila de tarjetas con scroll horizontal.
+  [x] Verificado con Playwright en escritorio (1440px) y móvil (390px):
+      se mueve hacia la derecha, sin errores de consola.
+
+- Detectado (no introducido por este cambio, sin arreglar):
+  [ ] En móvil (390px) el email de Contacto
+      (xylagenciamarketingdeportivo@gmail.com) es más ancho que la
+      pantalla y provoca scroll horizontal de toda la página.
+
+- Pendiente: Casos de éxito solo tiene los placeholders Atleta 02 y
+  Atleta 03; faltan atletas reales. Colaboradores 01-03 siguen
+  pendientes.
+
+------------------------------------------------------------

@@ -9,7 +9,7 @@ build ni dependencias — a propósito, para mantenerla simple y fácil de edita
 index.html        una sola página con secciones ancladas (Servicios, Casos de
                    éxito, Sobre nosotros, Newsletter, Contacto)
 css/style.css      estilos y tokens de marca
-js/main.js         menú móvil
+js/main.js         menú móvil y carrusel de Casos de éxito
 assets/logo.svg    logo completo (copia de activos/logo.svg en xpand-carrusel)
 assets/favicon.svg icono de pestaña (recorte del logo, colores fijos)
 assets/iconos.svg  sprite de iconos (mismos SVG que activos/iconos/ en xpand-carrusel)
