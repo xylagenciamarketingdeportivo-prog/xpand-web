@@ -135,7 +135,7 @@ em{font-style:normal; color:var(--lima);}
 
 .tarjeta{padding:8px;}
 
-/* ---------------------------------------------------------- carrusel de casos (estilo review) */
+/* ---------------------------------------------------------- carrusel de casos de éxito */
 .carrusel{overflow-x:auto;}
 .carrusel:not(.carrusel--animado) .carrusel__pista{padding:0 24px;}
 .carrusel--animado{
@@ -144,6 +144,7 @@ em{font-style:normal; color:var(--lima);}
           mask-image:linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
 }
 .carrusel__pista{display:flex; width:max-content;}
+.carrusel__pista > *{flex:0 0 auto; width:280px; margin-right:32px;}
 .carrusel--animado .carrusel__pista{animation:carrusel var(--duracion, 50s) linear infinite;}
 .carrusel:hover .carrusel__pista,
 .carrusel:focus-within .carrusel__pista{animation-play-state:paused;}
@@ -153,58 +154,24 @@ em{font-style:normal; color:var(--lima);}
   to{transform:translateX(0);}
 }
 
-.caso{
-  flex:0 0 auto;
-  width:320px;
-  margin-right:20px;
-  padding:24px;
-  display:flex; flex-direction:column; justify-content:space-between; gap:24px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:16px;
-  background:rgba(255,255,255,.04);
-}
-.caso__texto::before{
-  content:'\201C';
+/* ---------------------------------------------------------- perfiles (casos de éxito y colaboradores) */
+.perfil{padding:8px; min-width:0; text-align:center;}
+.perfil__foto{
   display:block;
-  font-family:'Barlow Condensed', sans-serif; font-weight:800;
-  font-size:3rem; line-height:.7;
-  color:var(--lima);
-}
-.caso__autor{display:flex; align-items:center; gap:14px;}
-.caso__autor h3{margin-bottom:2px;}
-.caso__foto{
-  flex:0 0 auto;
-  width:64px; height:64px;
+  width:120px; height:120px;
+  margin:0 auto 20px;
   border-radius:50%;
   object-fit:cover;
   object-position:center 15%;
   background:linear-gradient(135deg, rgba(194,214,46,.35), rgba(255,255,255,.06));
-  border:2px solid var(--lima);
 }
-.caso__insta{
-  display:inline-block;
+.perfil h3{font-size:1.5rem;}
+.perfil .cuerpo{max-width:300px; margin:0 auto; opacity:.8;}
+.perfil__enlace{
+  display:inline-block; margin-top:10px;
   color:var(--lima); font-weight:700; text-decoration:none; font-size:.9rem;
 }
-.caso__insta:hover{text-decoration:underline;}
-
-.colaborador{padding:8px; min-width:0;}
-.colaborador__enlace{
-  display:inline-block; margin-top:8px;
-  color:var(--lima); font-weight:700; text-decoration:none; font-size:.9rem;
-}
-.colaborador__enlace:hover{text-decoration:underline;}
-.colaborador__imagen{
-  display:block;
-  width:100%;
-  max-width:100%;
-  aspect-ratio:3/4;
-  border-radius:12px;
-  margin-bottom:16px;
-  object-fit:cover;
-  object-position:center 15%;
-  background:linear-gradient(135deg, rgba(194,214,46,.35), rgba(255,255,255,.06));
-  border:1px solid rgba(255,255,255,.15);
-}
+.perfil__enlace:hover{text-decoration:underline;}
 
 /* ---------------------------------------------------------- valores */
 .lista-valores{
@@ -256,5 +223,5 @@ em{font-style:normal; color:var(--lima);}
   .nav a{width:100%; padding:16px 24px; border-top:1px solid rgba(0,0,0,.06);}
   .nav__cta{border-radius:0; text-align:center;}
   .seccion{padding:64px 0;}
-  .caso{width:270px;}
+  .carrusel__pista > *{width:250px;}
 }

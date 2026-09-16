@@ -235,3 +235,33 @@ historial antiguo, solo se añade.
   pendientes.
 
 ------------------------------------------------------------
+2026-09-16 (2)
+
+- El usuario pasó una imagen de referencia (foto redonda arriba,
+  nombre en negrita y texto corto centrado, sin cajas) y pidió ese
+  estilo para Casos de éxito y Colaboradores.
+
+- Hecho:
+  [x] Nuevo componente compartido .perfil (css/style.css) para las dos
+      secciones: .perfil__foto (círculo de 120px, object-fit:cover),
+      h3 con el nombre, .cuerpo centrado y .perfil__enlace opcional
+      (verde lima, para @instagram o web). Sustituye a .caso y
+      .colaborador, que antes estaban separadas a propósito: ahora el
+      usuario quiere el mismo diseño en ambas.
+  [x] Casos de éxito mantiene el carrusel en movimiento de izquierda a
+      derecha (el ancho de cada elemento lo marca
+      .carrusel__pista > *: 280px, 250px en móvil).
+  [x] Colaboradores xpertos queda fijo, en rejilla de 3 columnas (una
+      debajo de otra en móvil).
+  [x] Verificado con Playwright en escritorio (1440px) y móvil (390px),
+      sin errores de consola; probado además con una foto real
+      insertada solo en el navegador para comprobar el recorte
+      circular.
+
+- Cómo añadir una persona real (en cualquiera de las dos secciones):
+  sustituir <div class="perfil__foto" aria-hidden="true"></div> por
+  <img class="perfil__foto" src="assets/..." alt="..." width="120"
+  height="120"> y, si tiene, añadir
+  <a class="perfil__enlace" href="..." target="_blank" rel="noopener">.
+
+------------------------------------------------------------
