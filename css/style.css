@@ -134,7 +134,7 @@ em{font-style:normal; color:var(--lima);}
 
 .tarjeta{padding:8px;}
 
-/* ---------------------------------------------------------- carruseles (casos de éxito y colaboradores) */
+/* ---------------------------------------------------------- carruseles (equipo XPAND y colaboradores) */
 .carrusel{overflow-x:auto;}
 .carrusel:not(.carrusel--animado) .carrusel__pista{padding:0 24px;}
 .carrusel--animado{
@@ -159,7 +159,7 @@ em{font-style:normal; color:var(--lima);}
   to{transform:translateX(var(--hasta, 0));}
 }
 
-/* ---------------------------------------------------------- perfiles (casos de éxito y colaboradores) */
+/* ---------------------------------------------------------- perfiles (equipo XPAND y colaboradores) */
 .perfil{padding:8px; min-width:0; text-align:center;}
 .perfil__foto{
   display:block;

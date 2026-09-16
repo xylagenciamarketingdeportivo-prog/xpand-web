@@ -363,3 +363,21 @@ historial antiguo, solo se añade.
       y final del recorrido: 2 tarjetas, sin copias, sin errores.
 
 ------------------------------------------------------------
+2026-09-16 (7)
+
+- Hecho — "Casos de éxito" pasa a llamarse "Equipo XPAND":
+  [x] Título de la sección y enlace del menú: "Equipo XPAND".
+  [x] Etiqueta verde sobre el título: de "Resultados" a "Tu historia
+      cuenta" (el lema de las fichas de atleta); "Resultados" ya no
+      encajaba con una sección de equipo. La intro ("Historias reales
+      de atletas con los que trabajamos.") se mantiene.
+  [x] Ancla de la sección: #casos -> #equipo
+      (xpandyourlimits.es/#equipo).
+  [x] Carpeta de fotos renombrada: assets/casos -> assets/equipo
+      (también la foto de Paula que usa Colaboradores).
+  [x] Comentarios de index.html, css/style.css, js/main.js y la
+      estructura del README.md actualizados al nuevo nombre.
+  [x] Verificado con Playwright: el enlace del menú lleva a #equipo,
+      todas las fotos cargan, sin errores ni 404.
+
+------------------------------------------------------------

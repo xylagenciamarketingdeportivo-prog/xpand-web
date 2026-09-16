@@ -6,10 +6,10 @@ build ni dependencias — a propósito, para mantenerla simple y fácil de edita
 ## Estructura
 
 ```
-index.html        una sola página con secciones ancladas (Servicios, Casos de
-                   éxito, Sobre nosotros, Newsletter, Contacto)
+index.html        una sola página con secciones ancladas (Servicios, Equipo XPAND,
+                   Colaboradores, Sobre nosotros, Newsletter, Contacto)
 css/style.css      estilos y tokens de marca
-js/main.js         menú móvil y carrusel de Casos de éxito
+js/main.js         menú móvil y carruseles (Equipo XPAND, Colaboradores)
 assets/logo.svg    logo completo (copia de activos/logo.svg en xpand-carrusel)
 assets/favicon.svg icono de pestaña (recorte del logo, colores fijos)
 assets/iconos.svg  sprite de iconos (mismos SVG que activos/iconos/ en xpand-carrusel)

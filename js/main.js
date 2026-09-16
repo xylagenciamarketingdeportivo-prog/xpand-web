@@ -15,7 +15,7 @@ if (menuBoton && nav) {
   });
 }
 
-// Carruseles (Casos de éxito y Colaboradores): repiten los elementos hasta cubrir el ancho
+// Carruseles (Equipo XPAND y Colaboradores): repiten los elementos hasta cubrir el ancho
 // visible y duplican ese conjunto, para que la animación CSS (de -50% a 0) haga un bucle sin saltos.
 // Con .carrusel--vaiven no se repite nada: el conjunto va de izquierda a derecha y vuelve.
 const PIXELES_POR_SEGUNDO = 40;
