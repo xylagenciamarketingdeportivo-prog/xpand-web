@@ -339,3 +339,27 @@ historial antiguo, solo se añade.
   habla de "descuentos y ventajas exclusivas").
 
 ------------------------------------------------------------
+2026-09-16 (6)
+
+- Feedback del usuario: con solo 2 colaboradores, que se repitan en
+  el carrusel "queda raro". Además, en la tarjeta de Paula en
+  Colaboradores quiere "entrenador de triatlón".
+
+- Hecho:
+  [x] Nuevo modo .carrusel--vaiven (usado en Colaboradores): no clona
+      tarjetas. El conjunto se desplaza de izquierda a derecha y vuelve
+      (animation alternate, ease-in-out), entre los bordes difuminados
+      (10% del ancho a cada lado). js/main.js calcula --desde, --hasta
+      y --duracion (40px/s, mínimo 4s) y los recalcula al cambiar el
+      ancho. Casos de éxito sigue con el bucle infinito normal.
+      - Escritorio (1440px): las dos tarjetas van juntas de un lado a
+        otro, 14s por trayecto.
+      - Móvil (390px): no caben las dos, así que se desliza de una a
+        otra, 5,5s por trayecto.
+  [x] Paula en Colaboradores: etiqueta cambiada de "Triatlón" a
+      "Entrenador de triatlón", literal como lo pidió el usuario. En
+      Casos de éxito sigue con "Triatlón".
+  [x] Verificado con Playwright (escritorio y móvil) en inicio, mitad
+      y final del recorrido: 2 tarjetas, sin copias, sin errores.
+
+------------------------------------------------------------

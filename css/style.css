@@ -152,6 +152,12 @@ em{font-style:normal; color:var(--lima);}
   from{transform:translateX(-50%);}
   to{transform:translateX(0);}
 }
+.carrusel--vaiven.carrusel--animado .carrusel__pista{animation:carrusel-vaiven var(--duracion, 20s) ease-in-out infinite alternate;}
+/* Sin copias: js/main.js calcula --desde y --hasta según el ancho disponible. */
+@keyframes carrusel-vaiven{
+  from{transform:translateX(var(--desde, 0));}
+  to{transform:translateX(var(--hasta, 0));}
+}
 
 /* ---------------------------------------------------------- perfiles (casos de éxito y colaboradores) */
 .perfil{padding:8px; min-width:0; text-align:center;}
