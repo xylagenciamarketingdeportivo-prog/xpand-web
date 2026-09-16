@@ -315,3 +315,27 @@ historial antiguo, solo se añade.
 - Pendiente: Colaboradores 01-03 siguen siendo placeholders.
 
 ------------------------------------------------------------
+2026-09-16 (5)
+
+- Hecho — Colaboradores xpertos con 2 colaboradores reales:
+  [x] Fran González Esteban (@f.rally), fisioterapeuta colaborador.
+      El usuario pasó la story de XPERTOS "Bienvenido @f.rally"
+      (~/Downloads/IMG_8238.PNG), donde salen dos personas. Se
+      identificó como el que sostiene el diploma ("D. Francisco
+      González Esteban"), y lo confirma el nombre de su perfil público
+      de Instagram: "Fran González Esteban". Foto recortada en
+      assets/colaboradores/fran-gonzalez.jpg (240x240).
+      Texto: "Fisioterapeuta colaborador del equipo XPAND." (no hay
+      descuento/oferta concreta todavía).
+  [x] Paula (@paula_trifit): "por el momento" según el usuario, usando
+      los mismos datos de su ficha que en Casos de éxito (Triatlón,
+      frase, Instagram) y reutilizando assets/casos/paula.jpg.
+  [x] Quitados los placeholders Colaborador 01-03.
+  [x] Verificado con Playwright en escritorio y móvil: fotos cargan,
+      ambos carruseles en movimiento, sin errores ni 404.
+
+- Pendiente: si los colaboradores ofrecen descuento o ventaja
+  concreta, sustituir el texto de cada tarjeta (la intro de la sección
+  habla de "descuentos y ventajas exclusivas").
+
+------------------------------------------------------------
