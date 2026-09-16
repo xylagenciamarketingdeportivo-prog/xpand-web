@@ -282,3 +282,36 @@ historial antiguo, solo se añade.
       quedan quietos con scroll horizontal.
 
 ------------------------------------------------------------
+2026-09-16 (4)
+
+- El usuario pasó capturas de las fichas "Tu historia cuenta" de 6
+  atletas (stories de Equipo XPAND, guardadas en ~/Downloads como
+  IMG_8232-8237.PNG) para usarlas como Casos de éxito. Había una 7ª
+  captura (IMG_8238, story de XPERTOS "Bienvenido @f.rally") que no es
+  una ficha de atleta: no se ha usado.
+
+- Hecho:
+  [x] Casos de éxito con 6 atletas reales, en el orden en que se
+      pasaron las fichas. De cada ficha se toma: deporte principal
+      (etiqueta .ojo), nombre, frase entre comillas e Instagram:
+      - Jesús Cabrero — Triatlón / Running — @jesus.cabrero
+      - Alan Salvatico — Running — @alansalvatico
+      - Amador Acacio Perez — Triatlón — @cubanoprime (vuelve a
+        aparecer, porque su ficha venía entre las enviadas)
+      - Paula — Triatlón — @paula_trifit
+      - Julen Andueza — Triatlón — @julen_andueza (la ficha pone
+        "Tratlón", corregido a Triatlón)
+      - Tania Garrigues — Running — @ta_ni_us_
+      Los nombres se copian tal cual de la ficha (p. ej. "Perez" sin
+      tilde). No se usan "Próximo reto" ni "Objetivo personal".
+  [x] Fotos recortadas de cada ficha a 240x240 (retina de los 120px
+      del círculo) en assets/casos/<nombre>.jpg, ~10-15 KB cada una.
+  [x] Quitados los placeholders Atleta 02 y Atleta 03.
+  [x] Las fotos no usan loading="lazy": dentro del carrusel animado
+      podrían aparecer en blanco al entrar en pantalla.
+  [x] Verificado con Playwright en escritorio y móvil: 6 fotos cargan
+      (sin 404), carrusel en movimiento, sin errores de consola.
+
+- Pendiente: Colaboradores 01-03 siguen siendo placeholders.
+
+------------------------------------------------------------
