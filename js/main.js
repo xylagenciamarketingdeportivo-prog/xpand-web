@@ -15,13 +15,12 @@ if (menuBoton && nav) {
   });
 }
 
-// Carrusel de Casos de éxito: repite las tarjetas hasta cubrir el ancho visible y
-// duplica ese conjunto, para que la animación CSS (de -50% a 0) haga un bucle sin saltos.
-const carrusel = document.querySelector('.carrusel');
-const pista = carrusel && carrusel.querySelector('.carrusel__pista');
+// Carruseles (Casos de éxito y Colaboradores): repiten los elementos hasta cubrir el ancho
+// visible y duplican ese conjunto, para que la animación CSS (de -50% a 0) haga un bucle sin saltos.
 const PIXELES_POR_SEGUNDO = 40;
 
-if (pista && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+const iniciarCarrusel = (carrusel) => {
+  const pista = carrusel.querySelector('.carrusel__pista');
   const originales = Array.from(pista.children);
   let anchoAnterior = 0;
 
@@ -51,4 +50,8 @@ if (pista && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 
   montar();
   window.addEventListener('resize', montar);
+};
+
+if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.carrusel').forEach(iniciarCarrusel);
 }

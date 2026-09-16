@@ -120,7 +120,6 @@ em{font-style:normal; color:var(--lima);}
 /* ---------------------------------------------------------- rejillas / tarjetas */
 .rejilla{display:grid; gap:28px; margin-top:16px;}
 .rejilla--4{grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));}
-.rejilla--3{grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));}
 
 .ficha{
   width:52px; height:52px; border-radius:50%;
@@ -135,7 +134,7 @@ em{font-style:normal; color:var(--lima);}
 
 .tarjeta{padding:8px;}
 
-/* ---------------------------------------------------------- carrusel de casos de éxito */
+/* ---------------------------------------------------------- carruseles (casos de éxito y colaboradores) */
 .carrusel{overflow-x:auto;}
 .carrusel:not(.carrusel--animado) .carrusel__pista{padding:0 24px;}
 .carrusel--animado{

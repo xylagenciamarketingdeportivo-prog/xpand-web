@@ -265,3 +265,20 @@ historial antiguo, solo se añade.
   <a class="perfil__enlace" href="..." target="_blank" rel="noopener">.
 
 ------------------------------------------------------------
+2026-09-16 (3)
+
+- Hecho:
+  [x] Colaboradores xpertos pasa de rejilla fija de 3 columnas a
+      carrusel en movimiento de izquierda a derecha, igual que Casos
+      de éxito (mismo .carrusel > .carrusel__pista > article.perfil).
+  [x] js/main.js ahora monta todos los .carrusel de la página
+      (iniciarCarrusel), no solo el primero. Para añadir otro carrusel
+      en el futuro basta con el mismo HTML.
+  [x] Eliminada la regla .rejilla--3 de css/style.css (ya no la usaba
+      ninguna sección).
+  [x] Verificado con Playwright en escritorio (1440px), móvil (390px)
+      y con "reducir movimiento": los dos carruseles se mueven a
+      ~40px/s hacia la derecha, sin errores; con "reducir movimiento"
+      quedan quietos con scroll horizontal.
+
+------------------------------------------------------------
