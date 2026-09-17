@@ -190,16 +190,34 @@ em{font-style:normal; color:var(--lima);}
 }
 
 /* ---------------------------------------------------------- formulario */
-.formulario{
-  display:flex; gap:12px; margin-top:28px; flex-wrap:wrap; justify-content:center;
-}
-.formulario input{
+.formulario{margin-top:28px;}
+.formulario__fila{display:flex; gap:12px; flex-wrap:wrap; justify-content:center;}
+.formulario input[type="email"]{
   flex:1; min-width:220px;
   padding:14px 18px; border-radius:999px; border:1px solid rgba(255,255,255,.3);
   background:transparent; color:inherit; font-family:inherit; font-size:1rem;
 }
-.formulario input::placeholder{color:rgba(255,255,255,.5);}
+.formulario input[type="email"]::placeholder{color:rgba(255,255,255,.5);}
+.formulario input[type="email"]:disabled{opacity:.5; cursor:not-allowed;}
+.formulario input[type="email"]:focus-visible{outline:2px solid var(--lima); outline-offset:2px;}
+
+/* Trampa antispam: fuera de pantalla en vez de display:none, que algunos bots detectan. */
+.trampa{position:absolute; left:-9999px; width:1px; height:1px; opacity:0;}
+
+.consentimiento{
+  display:flex; gap:10px; align-items:flex-start;
+  max-width:440px; margin:18px auto 0; text-align:left;
+  font-size:.85rem; line-height:1.5; color:rgba(255,255,255,.7); cursor:pointer;
+}
+.consentimiento input{
+  flex:0 0 auto; width:17px; height:17px; margin-top:2px;
+  accent-color:var(--lima); cursor:inherit;
+}
+.consentimiento input:disabled{cursor:not-allowed;}
+
 .formulario__nota{margin-top:14px; font-size:.85rem; color:rgba(255,255,255,.6);}
+.formulario__nota--ok{color:var(--lima);}
+.formulario__nota--error{color:#ff8a7a;}
 
 .enlace-grande{
   display:inline-block; margin-top:24px;

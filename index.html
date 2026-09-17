@@ -212,12 +212,25 @@
       <p class="cuerpo cuerpo--grande">
         Consejos de marketing deportivo y novedades de la agencia, directos a tu correo.
       </p>
-      <!-- TODO: conectar a un proveedor real (Web3Forms, Mailchimp, Brevo...) antes de activar -->
-      <form class="formulario" data-estado="pendiente" novalidate>
-        <input type="email" name="email" placeholder="Rellena tu email" aria-label="Correo electrónico" required disabled>
-        <button type="submit" class="boton boton--lima" disabled>Próximamente</button>
+      <!-- Los emails van a una lista de Brevo. La URL de envío se pone en js/newsletter.js
+           (BREVO_ENDPOINT); mientras esté vacía, el formulario se queda desactivado a
+           propósito y sigue diciendo "Próximamente", para no fingir que funciona. -->
+      <form class="formulario" id="formNewsletter" method="POST" novalidate>
+        <div class="formulario__fila">
+          <input type="email" id="newsletterEmail" name="EMAIL" placeholder="Rellena tu email"
+                 aria-label="Correo electrónico" autocomplete="email" required disabled>
+          <button type="submit" class="boton boton--lima" disabled>Próximamente</button>
+        </div>
+        <!-- Sin name: el consentimiento se comprueba aquí, no se manda a Brevo. -->
+        <label class="consentimiento">
+          <input type="checkbox" id="newsletterConsentimiento" required disabled>
+          <span>Acepto recibir emails de XPAND y que se guarde mi correo para enviármelos.</span>
+        </label>
+        <!-- Trampa antispam de Brevo: los bots la rellenan, las personas no la ven. -->
+        <input class="trampa" type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="hidden" name="locale" value="es">
       </form>
-      <p class="formulario__nota">Estamos terminando de conectar esto. Vuelve pronto.</p>
+      <p class="formulario__nota" id="newsletterNota" role="status" aria-live="polite">Estamos terminando de conectar esto. Vuelve pronto.</p>
     </div>
   </section>
 
@@ -250,5 +263,6 @@
 </footer>
 
 <script src="js/main.js"></script>
+<script src="js/newsletter.js"></script>
 </body>
 </html>

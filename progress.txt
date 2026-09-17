@@ -430,3 +430,91 @@ historial antiguo, solo se añade.
       xylagenciamarketingdeportivo: no aparece desde gh (sesión
       iniciada con otra cuenta, que solo ve xpand-web). Puede estar ya
       borrado o ser privado; falta que el usuario lo confirme.
+
+------------------------------------------------------------
+2026-09-17 (2)
+
+- Hecho:
+  [x] El usuario confirma que ha eliminado el repo antiguo
+      xylagenciamarketingdeportivo-prog/xylagenciamarketingdeportivo.
+      Con esto la landing antigua queda retirada del todo (Netlify y
+      repo).
+
+- En curso: conectar el formulario de Newsletter para recoger emails.
+
+------------------------------------------------------------
+2026-09-17 (3)
+
+- Newsletter: elegido Brevo como proveedor (frente a Mailchimp y Web3Forms).
+  Razones: gratis con contactos ilimitados, servidores en la UE (mejor para
+  RGPD) y el día que se lance la newsletter se escribe y se envía desde la
+  misma cuenta. El usuario quiere recogerlo ya, pero NO enviar nada todavía.
+
+- Hecho — formulario de Newsletter montado entero (index.html, css/style.css
+  y el nuevo js/newsletter.js):
+  [x] js/newsletter.js nuevo, cargado con otro <script> detrás de main.js.
+      Arriba del todo tiene una sola constante de configuración,
+      BREVO_ENDPOINT, con la URL del formulario de Brevo.
+  [x] Interruptor a propósito: si BREVO_ENDPOINT está vacía, el JS no hace
+      nada y el formulario se queda como estaba (campo y botón disabled,
+      botón "Próximamente", nota "Estamos terminando de conectar esto").
+      Es el JS el que activa los campos y cambia el botón a "Suscribirme",
+      no el HTML: si el JS fallara, el formulario queda desactivado en vez
+      de tragarse emails que no van a ninguna parte.
+  [x] Casilla de consentimiento RGPD obligatoria ("Acepto recibir emails de
+      XPAND y que se guarde mi correo para enviármelos") + nota debajo
+      ("Sin spam. Te puedes dar de baja cuando quieras."). La casilla NO
+      lleva atributo name: se comprueba en el navegador y no se manda a
+      Brevo (Brevo ya registra el consentimiento con el doble opt-in).
+  [x] Trampa antispam de Brevo: input oculto email_address_check, colocado
+      fuera de pantalla con position:absolute en vez de display:none, que
+      algunos bots detectan.
+  [x] Campos que se envían: EMAIL, locale=es y email_address_check (vacío).
+  [x] El POST se hace con fetch y mode:'no-cors', porque el navegador no
+      deja leer la respuesta de sibforms.com desde otro dominio. Se envía
+      "a ciegas": si la petición sale, se da el alta por buena. La
+      confirmación de verdad es el email de doble opt-in de Brevo. El catch
+      solo salta si no hay conexión.
+  [x] Estados del formulario: validación de email, aviso si falta la
+      casilla, "Enviando…", éxito en verde lima con reset del campo, y
+      error en rojo suave con el email de contacto como alternativa.
+      La nota es role="status" aria-live="polite" para lectores de pantalla.
+  [x] CSS: .formulario pasa a ser contenedor en columna y la fila
+      input+botón es .formulario__fila (antes .formulario era el flex).
+      Los selectores .formulario input pasan a
+      .formulario input[type="email"] para no pisar la casilla ni la
+      trampa. Nuevas clases .consentimiento, .trampa,
+      .formulario__nota--ok y .formulario__nota--error.
+
+- Verificado con Playwright (servidor local, interceptando js/newsletter.js
+  con una URL falsa y la llamada a sibforms.com):
+  [x] Sin endpoint: campo, casilla y botón disabled, texto "Próximamente".
+  [x] Con endpoint: se activan los tres, botón "Suscribirme".
+  [x] Email vacío -> "Revisa el email, parece que falta algo."
+  [x] Email válido sin casilla -> "Marca la casilla para poder suscribirte."
+  [x] Todo correcto -> POST real a Brevo con el cuerpo
+      EMAIL=prueba%40xpandyourlimits.es&email_address_check=&locale=es
+      (la casilla no viaja, como se quería), campo reseteado, botón
+      "¡Hecho!" y nota verde.
+  [x] Sin conexión -> nota de error en rojo y botón reactivado.
+  [x] Móvil 390px correcto y sin scroll horizontal a 320px.
+  [x] Sin errores de consola en ningún caso.
+
+- Hecho — README.md:
+  [x] Sección nueva "Newsletter (Brevo)" con los pasos exactos para
+      activarlo (crear lista, crear formulario, copiar la URL del action,
+      pegarla en js/newsletter.js) y las advertencias: no hace falta SMTP
+      ni clave de API (una clave de API quedaría a la vista en una web
+      estática), qué implica el doble opt-in y por qué el POST va a ciegas.
+  [x] Pendientes del README limpiados: estaban desactualizados (seguían
+      pidiendo el email real, el enlace de Instagram, retirar Netlify...,
+      todo ya hecho). La receta de DNS se marca como ya aplicada.
+
+- OJO (aviso al usuario): estaba configurando SMTP/transaccional en Brevo
+  (app.brevo.com/transactional/email/real-time). Eso no sirve para esto —
+  es para enviar emails automáticos desde un servidor. Lo que hace falta es
+  Contactos → Listas y Marketing → Formularios de suscripción.
+
+- Pendiente: falta que el usuario cree el formulario en Brevo y pase la URL
+  https://sibforms.com/serve/... para pegarla en BREVO_ENDPOINT. Hasta
+  entonces el formulario sigue desactivado a propósito.
