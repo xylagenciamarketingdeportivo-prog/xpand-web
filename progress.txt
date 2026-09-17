@@ -586,3 +586,45 @@ historial antiguo, solo se añade.
   de montaje a documentación de lo ya montado, con las advertencias de
   arriba (simple opt-in, el success:true de Brevo, qué campos se mandan y
   dónde se ven los contactos).
+
+------------------------------------------------------------
+2026-09-17 (5)
+
+- El usuario intentó activar el doble opt-in en el formulario de Brevo y le
+  sale: "Necesitas una cuenta Transaccional activa para poder enviar e-mails
+  de confirmación. Contacta con el servicio de atención al cliente para
+  activarla." Las opciones "Confirmación doble por e-mail" y "Confirmación
+  simple por e-mail" están en gris; solo se puede elegir "Sin e-mail de
+  confirmación", que es como está ahora.
+
+- Causa: Brevo desactiva la parte Transaccional en las cuentas nuevas y la
+  activa a mano tras revisarlas (filtro antispam). El doble opt-in manda su
+  correo de confirmación por esa vía. No hay arreglo desde el panel: hay que
+  pedirlo a soporte de Brevo.
+
+- Decidido: NO bloquear por esto. El formulario ya recoge emails en simple
+  opt-in. Cuando Brevo active lo transaccional y el usuario cambie la opción,
+  solo hay que revertir el mensaje de éxito de js/newsletter.js para que
+  vuelva a decir "Revisa tu correo para confirmar la suscripción".
+  Mientras tanto el rastro del consentimiento son la fecha de alta y el
+  formulario de origen que Brevo guarda por contacto, más la casilla
+  obligatoria, que está en el código publicado.
+
+- Estado real del DNS de xpandyourlimits.es (comprobado con dig contra
+  8.8.8.8 y 1.1.1.1, por si hace falta autenticar el dominio en Brevo):
+  - NO hay registros MX: el dominio no recibe correo. Por eso no se puede
+    verificar un remitente tipo hola@xpandyourlimits.es (no hay buzón al que
+    llegue el email de verificación). Hay que usar el Gmail de la agencia.
+    Aviso para más adelante: enviar la newsletter "desde" una dirección
+    @gmail.com a través de Brevo perjudica la entrega (Gmail y Yahoo lo
+    penalizan). Para lanzarla en serio conviene un buzón en el dominio.
+  - SPF: existe UN solo registro, "v=spf1 include:spf.dondominio.com". Si
+    Brevo pide SPF, hay que meter su include DENTRO de ese registro. Dos
+    registros v=spf1 rompen el SPF entero.
+  - Hay un COMODÍN (*) en DonDominio: cualquier subdominio inexistente
+    responde parkingsrv0.dondominio.com, incluidos _dmarc y
+    mail._domainkey, que es donde irían los registros de Brevo. No bloquea
+    (el comodín deja de aplicar en cuanto existe el registro concreto), pero
+    es el primer sospechoso si Brevo dice que no encuentra un registro.
+  - No hay registro DMARC propio.
+  - DNS en ns1/ns2.dondominio.com. La web sigue respondiendo 200.
