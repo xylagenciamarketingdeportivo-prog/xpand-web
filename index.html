@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=20260917">
 </head>
 <body>
 
@@ -227,7 +227,8 @@
           <span>Acepto recibir emails de XPAND y que se guarde mi correo para enviármelos.</span>
         </label>
         <!-- Trampa antispam de Brevo: los bots la rellenan, las personas no la ven. -->
-        <input class="trampa" type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" aria-hidden="true"
+               style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none">
         <input type="hidden" name="locale" value="es">
         <input type="hidden" name="html_type" value="simple">
       </form>
@@ -263,7 +264,7 @@
   </div>
 </footer>
 
-<script src="js/main.js"></script>
-<script src="js/newsletter.js"></script>
+<script src="js/main.js?v=20260917"></script>
+<script src="js/newsletter.js?v=20260917"></script>
 </body>
 </html>

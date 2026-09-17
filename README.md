@@ -17,6 +17,19 @@ assets/iconos.svg  sprite de iconos (mismos SVG que activos/iconos/ en xpand-car
 CNAME              dominio personalizado para GitHub Pages
 ```
 
+## Caché del navegador
+
+`index.html` enlaza los archivos con una versión: `css/style.css?v=20260917`,
+y lo mismo los dos `.js`. **Si cambias el CSS o el JS, sube ese número en las
+tres etiquetas** (vale la fecha del día). Si no, quien ya haya visitado la web
+puede seguir viendo la versión vieja durante un rato y parecerá que el cambio
+no se ha publicado — ha pasado dos veces.
+
+Por si acaso, las cosas que no pueden permitirse depender del CSS llevan su
+estilo en línea. Es el caso del campo trampa antispam del formulario de
+Newsletter: si el CSS no cargara o estuviera cacheado, seguiría invisible en
+lugar de aparecer como un campo vacío enorme en mitad de la sección.
+
 ## Marca
 
 Los tokens (`--lima: #C2D62E`, `--blanco: #F5F5F5`, tipografías Barlow /

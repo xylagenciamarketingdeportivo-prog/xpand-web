@@ -201,9 +201,6 @@ em{font-style:normal; color:var(--lima);}
 .formulario input[type="email"]:disabled{opacity:.5; cursor:not-allowed;}
 .formulario input[type="email"]:focus-visible{outline:2px solid var(--lima); outline-offset:2px;}
 
-/* Trampa antispam: fuera de pantalla en vez de display:none, que algunos bots detectan. */
-.trampa{position:absolute; left:-9999px; width:1px; height:1px; opacity:0;}
-
 .consentimiento{
   display:flex; gap:10px; align-items:flex-start;
   max-width:440px; margin:18px auto 0; text-align:left;

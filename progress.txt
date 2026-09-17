@@ -685,3 +685,39 @@ historial antiguo, solo se añade.
   - La rama main NO está protegida: quien tenga escritura puede forzar el
     historial o borrarla. Ofrecido al usuario bloquear force-push y borrado
     en main; pendiente de su respuesta.
+
+------------------------------------------------------------
+2026-09-17 (8)
+
+- Bug reportado: el usuario vio en la sección Newsletter un rectángulo
+  enorme vacío debajo de la casilla de consentimiento, con el borde azul de
+  foco del navegador. Era el campo TRAMPA ANTISPAM (email_address_check),
+  que debería ser invisible.
+
+- Causa: su navegador tenía cacheado el css/style.css ANTIGUO, el de antes
+  de tocar el formulario. Ese CSS no tiene la regla .trampa, y además su
+  selector era `.formulario input`, que pintaba TODOS los inputs con el
+  estilo de píldora del email — de ahí el rectángulo. Comprobado que
+  producción estaba bien: el style.css publicado sí tiene .trampa y el
+  selector ya acotado a input[type="email"], y una captura con navegador
+  limpio contra xpandyourlimits.es muestra la trampa en 4x4px, x=-9999 y
+  opacidad 0. Es el mismo problema de caché del 2026-09-01 (5).
+
+- Hecho — para que no dependa de la caché ni del CSS:
+  [x] La trampa antispam se oculta ahora con estilos EN LÍNEA en el propio
+      <input> (position:absolute; left:-9999px; ... ; pointer-events:none),
+      no con la clase .trampa. Quitada esa regla de css/style.css para no
+      tener el estilo en dos sitios. Si el CSS no carga, está roto o está
+      cacheado, la trampa sigue invisible.
+  [x] Versión en los enlaces de index.html: css/style.css?v=20260917 y lo
+      mismo en js/main.js y js/newsletter.js. Al cambiar CSS o JS hay que
+      subir ese número en las tres etiquetas, y el navegador se ve obligado
+      a descargar la versión nueva. Documentado en el README con su propia
+      sección ("Caché del navegador").
+
+- Verificado con Playwright en local, en los tres escenarios:
+  [x] CSS normal      -> trampa 4x4 en x=-9999, invisible.
+  [x] CSS BLOQUEADO   -> 9x7 en x=-9999, invisible.
+  [x] CSS VIEJO (el de 6233ba6, el que causó el bug) -> 220x30 pero en
+      x=-9999: invisible. Captura confirma que el rectángulo ya no sale.
+  [x] El envío del formulario sigue funcionando, sin errores de consola.
