@@ -651,3 +651,37 @@ historial antiguo, solo se añade.
   Arreglo duradero alternativo, si "Adultopedia" es la cuenta con la que
   trabaja a diario: añadirla como colaboradora con permiso de escritura en
   el repo, como ya se hizo con amadoracacioperez-ai el 2026-09-01 (3).
+
+------------------------------------------------------------
+2026-09-17 (7)
+
+- Hecho — SUBIDO A PRODUCCIÓN (6233ba6..f1b221d, 5 commits):
+  [x] Resuelto el 403 del push: `gh auth switch --user
+      xylagenciamarketingdeportivo-prog`. OJO, esto cambia la cuenta activa
+      de gh EN TODA LA MÁQUINA, no solo en este repo; antes estaba en
+      "Adultopedia". Para volver: `gh auth switch --user Adultopedia`.
+  [x] Verificado en producción: xpandyourlimits.es responde 200, el
+      js/newsletter.js publicado lleva el endpoint de Brevo, y el HTML
+      publicado tiene los 4 campos (EMAIL, locale, html_type,
+      email_address_check). La Newsletter ya recoge emails de verdad.
+
+- Decidido — el repo SE QUEDA PÚBLICO. El usuario pidió hacerlo privado por
+  seguridad de la web. Motivos para no hacerlo, que aceptó:
+  - GitHub Pages no sirve repos privados salvo con plan de pago (GitHub
+    Pro). En plan gratuito, ponerlo privado tumba xpandyourlimits.es.
+  - No hay nada sensible: escaneados el repo y TODO el historial de git en
+    busca de claves de API, contraseñas, tokens y claves privadas — cero
+    resultados. Son 16 ficheros de HTML/CSS/JS/imágenes que GitHub ya sirve
+    públicamente en el dominio.
+  - La URL del formulario de Brevo no es un secreto: va en el HTML de
+    cualquier web que use formularios de Brevo. Sin cuenta de Brevo no da
+    acceso a los contactos.
+
+- Auditoría de acceso al repo (lo que sí protege la web):
+  - Solo 2 cuentas: xylagenciamarketingdeportivo-prog (admin) y
+    amadoracacioperez-ai (write). "Adultopedia" NO tiene acceso, de ahí el
+    403 del push.
+  - 0 deploy keys y 0 webhooks.
+  - La rama main NO está protegida: quien tenga escritura puede forzar el
+    historial o borrarla. Ofrecido al usuario bloquear force-push y borrado
+    en main; pendiente de su respuesta.
