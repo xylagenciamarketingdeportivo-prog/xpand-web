@@ -721,3 +721,68 @@ historial antiguo, solo se añade.
   [x] CSS VIEJO (el de 6233ba6, el que causó el bug) -> 220x30 pero en
       x=-9999: invisible. Captura confirma que el rectángulo ya no sale.
   [x] El envío del formulario sigue funcionando, sin errores de consola.
+
+------------------------------------------------------------
+2026-09-17 (9)
+
+- Hecho — PROTECCIÓN DE LA RAMA main (a petición del usuario):
+  [x] Activada vía API: allow_force_pushes=false, allow_deletions=false,
+      enforce_admins=true (aplica también al dueño). NO se exige pull
+      request, así que el flujo de trabajo no cambia: `git push` normal
+      sigue funcionando.
+  [x] Verificado en la práctica: un push normal pasó, y al intentar
+      reescribir el historial (reset + push) GitHub lo rechazó.
+  [x] Efecto secundario de esa prueba: queda un commit vacío a43be27
+      "prueba de proteccion de rama" en el historial, que ya no se puede
+      borrar precisamente porque la protección funciona. Se deja.
+
+- Hecho — REPASO DE CIBERSEGURIDAD. Lo que se comprobó y el resultado:
+  [x] Secretos: cero en el árbol y cero en TODO el historial de git.
+  [x] Código: sin innerHTML, sin document.write, sin eval, sin manejadores
+      en línea. Todo el texto se escribe con textContent. Sin superficie
+      de XSS.
+  [x] Enlaces: los 12 target="_blank" llevan rel="noopener".
+  [x] HTTPS: forzado, http y www redirigen con 301. Certificado OK.
+  [x] GitHub Actions: ninguna configurada (sin riesgo de workflow
+      malicioso). 0 deploy keys, 0 webhooks. Solo 2 cuentas con acceso.
+  [x] DNS colgando: comprobados 13 subdominios habituales. No queda NADA
+      apuntando a Netlify — sin riesgo de secuestro de subdominio tras
+      borrar la landing antigua.
+  [x] Terceros que ejecuta la web: solo Google Fonts. Los enlaces a redes
+      sociales son href, no cargan código.
+
+- Hecho — mitigación aplicada:
+  [x] CSP por <meta http-equiv="Content-Security-Policy"> en index.html:
+      script-src 'self' (nada de scripts externos), connect-src limitado a
+      'self' y al dominio de Brevo, font-src a fonts.gstatic.com,
+      style-src con 'unsafe-inline' (necesario por los pocos style="..."
+      del HTML; los scripts NO llevan unsafe-inline), object-src 'none',
+      frame-src 'none', base-uri 'self', form-action a 'self' y Brevo.
+      Añadido también <meta name="referrer" content="strict-origin-when-
+      cross-origin">.
+      AVISO PARA EL FUTURO: si se añade analítica, chat o píxel de Meta,
+      hay que meter su dominio en esa CSP o el navegador lo bloqueará.
+  [x] Verificado con Playwright: CERO violaciones de CSP, cero errores de
+      consola, cero peticiones fallidas; tipografía Barlow cargada, 14/14
+      imágenes, los 2 carruseles animando, el formulario enviando a Brevo
+      y el menú móvil abriendo.
+
+- PENDIENTE (no se puede arreglar desde el código, requiere acción del
+  usuario). Por orden de importancia:
+  [ ] DMARC: el dominio NO tiene registro _dmarc. Hoy cualquiera puede
+      mandar correos que parezcan venir de @xpandyourlimits.es y suplantar
+      a la agencia ante atletas y patrocinadores. Arreglo: TXT en
+      _dmarc.xpandyourlimits.es con "v=DMARC1; p=quarantine; rua=mailto:
+      xylagenciamarketingdeportivo@gmail.com". Gratis, 5 minutos en
+      DonDominio.
+  [ ] SPF sin qualifier: el registro es "v=spf1 include:spf.dondominio.com"
+      y no termina en -all ni ~all, así que por defecto es neutro y no
+      rechaza nada. Debería acabar en "~all".
+  [ ] Cabeceras de seguridad (HSTS, X-Frame-Options, X-Content-Type-
+      Options): GitHub Pages no deja ponerlas. Se arreglan metiendo
+      Cloudflare gratis por delante del dominio.
+  [ ] Captcha en el formulario de Brevo: el endpoint es público, cualquiera
+      puede mandarle altas masivas y llenar la lista de basura. Brevo tiene
+      captcha en los ajustes del formulario.
+  [ ] Confirmar que las 3 cuentas de GitHub tienen 2FA (el token no tiene
+      permiso para leerlo).

@@ -17,6 +17,25 @@ assets/iconos.svg  sprite de iconos (mismos SVG que activos/iconos/ en xpand-car
 CNAME              dominio personalizado para GitHub Pages
 ```
 
+## Seguridad
+
+- **`main` está protegida**: no se puede forzar el historial ni borrar la rama,
+  y la regla se aplica también a los administradores. Un `git push` normal
+  funciona igual que siempre; solo se bloquean `--force` y el borrado. Para
+  desactivarla en una emergencia hace falta entrar en Settings → Branches del
+  repo.
+- **CSP por `<meta>`** en `index.html`. Limita de dónde puede salir el código
+  que ejecuta la página: scripts solo de este dominio, conexiones solo a Brevo,
+  tipografías solo de Google Fonts. **Si algún día añades un script externo**
+  (analítica, chat, píxel de Meta...), hay que añadir su dominio a esa etiqueta
+  o el navegador lo bloqueará y parecerá que "no funciona".
+- GitHub Pages no permite cabeceras propias, así que `Strict-Transport-Security`,
+  `X-Frame-Options` y compañía no se pueden poner. Para tenerlas habría que
+  meter Cloudflare (gratis) por delante del dominio.
+- El repo no contiene secretos y no debe contener ninguno: todo lo que hay aquí
+  se sirve públicamente. Nunca pegues una clave de API de Brevo ni de ningún
+  otro servicio en estos archivos.
+
 ## Caché del navegador
 
 `index.html` enlaza los archivos con una versión: `css/style.css?v=20260917`,
