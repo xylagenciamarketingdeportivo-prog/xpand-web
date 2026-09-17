@@ -639,5 +639,15 @@ historial antiguo, solo se añade.
       "Newsletter web" queda limpia.
   [x] Doble opt-in y buzón propio en el dominio anotados como pendientes en
       el README, para retomarlos más adelante.
-  [x] Subido a main y publicado en GitHub Pages: la Newsletter empieza a
-      recoger emails en xpandyourlimits.es.
+- NO subido todavía: el push a main falló con 403. En esta máquina hay tres
+  cuentas de GitHub en `gh` y la activa es "Adultopedia", que no tiene
+  permiso de escritura en xylagenciamarketingdeportivo-prog/xpand-web (la
+  API confirma push=false). Las otras dos, "amadoracacioperez-ai" y
+  "xylagenciamarketingdeportivo-prog" (la dueña), están autenticadas pero
+  inactivas. No lo pude arreglar yo: el sandbox bloquea tanto leer el token
+  como hacer `gh auth switch`. Lo tiene que lanzar el usuario:
+      gh auth switch --user xylagenciamarketingdeportivo-prog
+      git push origin main
+  Arreglo duradero alternativo, si "Adultopedia" es la cuenta con la que
+  trabaja a diario: añadirla como colaboradora con permiso de escritura en
+  el repo, como ya se hizo con amadoracacioperez-ai el 2026-09-01 (3).
