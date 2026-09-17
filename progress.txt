@@ -381,3 +381,52 @@ historial antiguo, solo se añade.
       todas las fotos cargan, sin errores ni 404.
 
 ------------------------------------------------------------
+
+------------------------------------------------------------
+2026-09-17
+
+- Hecho — scroll horizontal en móvil:
+  [x] Email de Contacto (.enlace-grande): el tamaño de letra pasa de
+      1.4rem fijo a clamp(.9rem, 4.8vw, 1.4rem), así que encoge en
+      móvil (18.7px a 390px, 15.4px a 320px) y sigue en 1.4rem desde
+      ~470px. Además max-width:100% y overflow-wrap:anywhere por si en
+      alguna pantalla aún más estrecha no cabe (parte la línea en vez
+      de desbordar).
+  [x] Detectado y arreglado otro desbordamiento en la cabecera, a
+      360px o menos: el <svg> del logo no tiene tamaño propio y el
+      navegador le da 300px de ancho por defecto (el dibujo, ~84px,
+      queda centrado dentro). Con el botón del menú no cabía: a 320px
+      el botón quedaba fuera de pantalla. Añadido min-width:0 a
+      .cabecera__logo y max-width:100% a .logo para que la caja
+      encoja. En escritorio y a 390px se ve igual que antes.
+  [x] Verificado con Playwright a 320, 360, 390, 768 y 1440px: la
+      página mide lo mismo que la pantalla (sin scroll horizontal),
+      email en una línea y botón del menú visible.
+
+- Comprobado — migración de DNS a GitHub Pages YA HECHA (seguía
+  apuntada como pendiente desde 2026-09-01):
+  [x] xpandyourlimits.es tiene los 4 registros A de GitHub Pages
+      (185.199.108-111.153) y www es CNAME a
+      xylagenciamarketingdeportivo-prog.github.io.
+  [x] http://xpandyourlimits.es responde 301 desde GitHub.com.
+
+- Decidido: Colaboradores se queda como está de momento (Fran y
+  Paula, sin descuento/oferta concreta). No tocar hasta que el usuario
+  lo pida.
+
+- Hecho — landing antigua de Netlify retirada:
+  [x] Antes de borrar se comprobó que la web nueva no dependía de
+      Netlify: los DNS del dominio están en DonDominio
+      (ns1/ns2.dondominio.com) y xpandyourlimits.es y www los sirve
+      GitHub.com con la web nueva. Netlify solo tenía la landing
+      "XYL — Xpand Your Limits | Próximamente".
+  [x] El usuario borró a mano el proyecto boisterous-llama-fbda6c en
+      Netlify. Verificado después: boisterous-llama-fbda6c.netlify.app
+      da 404, y xpandyourlimits.es y www siguen dando 200.
+  [x] Cambios de este día subidos a main y publicados en GitHub Pages.
+
+- Pendiente:
+  [ ] Repo antiguo xylagenciamarketingdeportivo-prog/
+      xylagenciamarketingdeportivo: no aparece desde gh (sesión
+      iniciada con otra cuenta, que solo ve xpand-web). Puede estar ya
+      borrado o ser privado; falta que el usuario lo confirme.

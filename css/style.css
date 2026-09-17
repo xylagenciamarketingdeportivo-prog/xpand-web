@@ -63,7 +63,7 @@ em{font-style:normal; color:var(--lima);}
 .centro .raya{margin-left:auto;margin-right:auto;}
 
 /* ---------------------------------------------------------- logo */
-.logo{display:block; width:auto; fill:none;}
+.logo{display:block; width:auto; max-width:100%; fill:none;}
 .logo--cabecera{height:22px; color:var(--tinta);}
 .logo--pie{height:20px; color:var(--blanco);}
 
@@ -77,6 +77,8 @@ em{font-style:normal; color:var(--lima);}
   display:flex; align-items:center; justify-content:space-between;
   height:72px;
 }
+/* el svg del logo mide 300px por defecto: dejar que encoja en pantallas estrechas */
+.cabecera__logo{min-width:0;}
 .nav{display:flex; align-items:center; gap:28px;}
 .nav a{
   color:var(--tinta); text-decoration:none;
@@ -202,7 +204,9 @@ em{font-style:normal; color:var(--lima);}
 .enlace-grande{
   display:inline-block; margin-top:24px;
   font-family:'Barlow Condensed', sans-serif; font-weight:700; text-transform:uppercase;
-  font-size:1.4rem; color:var(--tinta); text-decoration:none; border-bottom:2px solid var(--lima);
+  font-size:clamp(.9rem, 4.8vw, 1.4rem); color:var(--tinta); text-decoration:none; border-bottom:2px solid var(--lima);
+  /* el email es largo: encoge en móvil y, si aun así no cabe, parte la línea */
+  max-width:100%; overflow-wrap:anywhere;
 }
 .redes{margin-top:20px; display:flex; justify-content:center; gap:20px;}
 .redes a{display:inline-flex; color:var(--tinta);}
