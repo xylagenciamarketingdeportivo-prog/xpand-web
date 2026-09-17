@@ -1,14 +1,12 @@
 // Newsletter — el email se guarda en una lista de contactos de Brevo.
 //
-// PARA ACTIVARLO: pega abajo la URL de envío del formulario de Brevo. Es la que
-// aparece en el atributo action="..." del código que da Brevo al crear un
-// formulario de suscripción, y tiene esta pinta:
-//
-//   const BREVO_ENDPOINT = 'https://sibforms.com/serve/MUIFAKExxxxxxxxxxxxxxxx';
-//
-// Mientras esta constante esté vacía, el formulario se queda desactivado y sigue
-// diciendo "Próximamente": preferimos eso a un formulario que no guarda nada.
-const BREVO_ENDPOINT = '';
+// BREVO_ENDPOINT es la URL del formulario de suscripción de Brevo (la del
+// atributo action="..." de su código para incrustar). Si algún día se rehace el
+// formulario en Brevo, la URL cambia y hay que pegar aquí la nueva: es lo único
+// que hay que tocar. Si se deja vacía, el JS no hace nada y el formulario se
+// queda desactivado, diciendo "Próximamente" — preferible a aceptar emails que
+// no se guardan en ninguna parte.
+const BREVO_ENDPOINT = 'https://bd5fa941.sibforms.com/serve/MUIFAIYdgXRPRZwgwBIv-FWim5-36Ywbg1JiL8ntswR79jZBWgiGHoK8cGDMVIbjAvBIkQeJ9Nc5N8dfkKeJ3D-QB7vrZjcgHlaP0VCIqN79LT1dr4TCpeofR-Gi-I9SHEJ-CB3Noy_43iGtCWxq6XggoZbd8LOomKPgF6tbp5OIsUFSV1XdslhAyObUY023W9Q-Wde_fTjL_POI6w==';
 
 const formNewsletter = document.getElementById('formNewsletter');
 const notaNewsletter = document.getElementById('newsletterNota');
@@ -16,6 +14,7 @@ const notaNewsletter = document.getElementById('newsletterNota');
 if (formNewsletter && notaNewsletter && BREVO_ENDPOINT) {
   const email = document.getElementById('newsletterEmail');
   const consentimiento = document.getElementById('newsletterConsentimiento');
+  const trampa = formNewsletter.querySelector('input[name="email_address_check"]');
   const boton = formNewsletter.querySelector('button[type="submit"]');
 
   const avisar = (texto, estado) => {
@@ -24,8 +23,14 @@ if (formNewsletter && notaNewsletter && BREVO_ENDPOINT) {
     notaNewsletter.classList.toggle('formulario__nota--error', estado === 'error');
   };
 
-  // Se activa aquí, no en el HTML: si el JS falla, el formulario queda desactivado
-  // en vez de aceptar emails que no van a ninguna parte.
+  const exito = () => {
+    formNewsletter.reset();
+    boton.textContent = '¡Hecho!';
+    avisar('¡Listo! Ya estás en la lista. Te escribimos cuando lancemos la newsletter.', 'ok');
+  };
+
+  // Se activa desde aquí, no desde el HTML: si el JS fallara, el formulario
+  // seguiría desactivado en vez de tragarse emails.
   formNewsletter.action = BREVO_ENDPOINT;
   [email, consentimiento, boton].forEach((campo) => { campo.disabled = false; });
   boton.textContent = 'Suscribirme';
@@ -35,6 +40,9 @@ if (formNewsletter && notaNewsletter && BREVO_ENDPOINT) {
     evento.preventDefault();
     if (boton.disabled) return;
 
+    // Brevo acepta como válido cualquier cosa que le mandes (responde
+    // {"success":true} hasta con el email vacío o inválido), así que la
+    // comprobación de verdad se hace aquí.
     if (!email.checkValidity()) {
       avisar('Revisa el email, parece que falta algo.', 'error');
       email.focus();
@@ -50,22 +58,25 @@ if (formNewsletter && notaNewsletter && BREVO_ENDPOINT) {
     boton.textContent = 'Enviando…';
     avisar('Un momento…');
 
+    // Trampa antispam rellena: es un bot. Se le da la enhorabuena y no se envía.
+    if (trampa && trampa.value) {
+      exito();
+      return;
+    }
+
     try {
-      // mode:'no-cors' — Brevo recibe el POST, pero el navegador no nos deja leer
-      // su respuesta desde otro dominio. Por eso se envía "a ciegas": si la
-      // petición sale, damos el alta por buena. La confirmación de verdad es el
-      // email que Brevo manda al suscriptor (doble opt-in).
-      await fetch(BREVO_ENDPOINT, {
+      // Brevo devuelve cabeceras CORS, así que se puede leer su respuesta.
+      // No sirve para validar (contesta {"success":true} a casi todo), pero sí
+      // para detectar una URL caducada o mal pegada, que devuelve un 404.
+      const respuesta = await fetch(BREVO_ENDPOINT, {
         method: 'POST',
-        mode: 'no-cors',
+        mode: 'cors',
         body: new URLSearchParams(new FormData(formNewsletter)),
       });
-      formNewsletter.reset();
-      boton.textContent = '¡Hecho!';
-      avisar('¡Listo! Revisa tu correo para confirmar la suscripción.', 'ok');
+      if (!respuesta.ok) throw new Error(`Brevo ha respondido ${respuesta.status}`);
+      exito();
     } catch (error) {
-      // Solo llega aquí si no hay conexión: con no-cors, una respuesta de error
-      // de Brevo es indistinguible de una correcta.
+      // Aquí se llega si no hay conexión o si el endpoint ya no vale.
       boton.disabled = false;
       boton.textContent = 'Suscribirme';
       avisar('No hemos podido enviarlo. Revisa tu conexión o escríbenos a xylagenciamarketingdeportivo@gmail.com', 'error');

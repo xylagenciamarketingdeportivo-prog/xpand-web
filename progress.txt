@@ -518,3 +518,71 @@ historial antiguo, solo se añade.
 - Pendiente: falta que el usuario cree el formulario en Brevo y pase la URL
   https://sibforms.com/serve/... para pegarla en BREVO_ENDPOINT. Hasta
   entonces el formulario sigue desactivado a propósito.
+
+------------------------------------------------------------
+2026-09-17 (4)
+
+- El usuario creó el formulario en Brevo y pasó el código "HTML simple". La
+  Newsletter queda CONECTADA y recogiendo emails.
+
+- Hecho:
+  [x] BREVO_ENDPOINT en js/newsletter.js con la URL real del formulario:
+      https://bd5fa941.sibforms.com/serve/MUIFAIYdgXRPRZwgwBIv-... (248
+      caracteres). Ojo: el subdominio bd5fa941 forma parte de la URL, no es
+      sibforms.com a secas como esperaba la documentación que escribí antes.
+  [x] Añadido el campo oculto que faltaba, html_type=simple: aparece en el
+      código de Brevo y no lo teníamos. Campos definitivos: EMAIL, locale=es,
+      html_type=simple y email_address_check (trampa, vacía).
+
+- Averiguado probando el endpoint real con curl (importante para entender
+  por qué el código está como está):
+  [x] Brevo SÍ devuelve cabeceras CORS: access-control-allow-origin con el
+      Origin que le mandes (probado con https://xpandyourlimits.es y con
+      http://localhost:8765). Así que se puede leer su respuesta y NO hace
+      falta el mode:'no-cors' que se había puesto el día anterior. Cambiado
+      a mode:'cors', que además detecta un endpoint roto.
+  [x] Brevo responde {"success":true} A TODO: email inválido
+      ("esto-no-es-un-email"), email vacío, alta repetida y hasta con la
+      trampa antispam rellena. Su respuesta no sirve para validar nada, así
+      que toda la validación de verdad se hace en el navegador. Solo la
+      primera alta de un email nuevo añade además un "message".
+  [x] Lo que sí detecta: una URL caducada o mal pegada devuelve HTTP 404.
+      Por eso el JS comprueba respuesta.ok y muestra el error. Con no-cors
+      ese 404 habría pasado por éxito silencioso.
+  [x] Como Brevo no descarta por su cuenta las altas con la trampa rellena
+      (o al menos no lo dice), el JS la comprueba también: si viene con algo
+      escrito, muestra el mensaje de éxito y NO envía nada.
+
+- Cambio de copy: el formulario de Brevo está en simple opt-in ("Sin e-mail
+  de confirmación"), que era lo que quería el usuario (no enviar nada
+  todavía). El mensaje de éxito decía "Revisa tu correo para confirmar la
+  suscripción" — ese correo no existe. Cambiado a "¡Listo! Ya estás en la
+  lista. Te escribimos cuando lancemos la newsletter."
+  Si algún día se activa el doble opt-in hay que revertir ese texto.
+
+- Verificado con Playwright en local contra el Brevo real:
+  [x] Alta real desde el navegador -> HTTP 200 de sibforms.com, botón
+      "¡Hecho!", nota verde, campo reseteado, sin errores de consola.
+  [x] Email vacío y email válido sin casilla -> mensajes de error y CERO
+      peticiones a Brevo.
+  [x] Endpoint devolviendo 404 -> nota de error y botón reactivado.
+  [x] Sin conexión -> nota de error, y el reintento vuelve a enviar.
+  [x] Trampa antispam rellena -> cero peticiones a Brevo.
+  [x] Móvil 390px y 320px sin scroll horizontal y sin errores.
+
+- LIMPIEZA PENDIENTE EN BREVO (contactos de prueba creados durante los
+  tests, hay que borrarlos desde Brevo -> Contactos):
+  [ ] prueba.web@xpandyourlimits.es — alta deliberada para comprobar que el
+      endpoint funcionaba (curl y navegador).
+  [ ] hola@ejemplo.es — alta NO deseada: una prueba mía de "endpoint roto"
+      tenía mal el patrón de intercepción (**/sibforms.com/** no casa con el
+      subdominio bd5fa941.sibforms.com), así que la petición salió de verdad.
+      Corregido a **sibforms.com/** y repetida la prueba sin salir a la red.
+  [ ] Puede que existan también bot.prueba@xpandyourlimits.es y
+      esto-no-es-un-email, de las pruebas con curl (Brevo dijo success a
+      todas, pero no se sabe cuáles guardó de verdad).
+
+- Hecho — README.md: la sección "Newsletter (Brevo)" pasa de instrucciones
+  de montaje a documentación de lo ya montado, con las advertencias de
+  arriba (simple opt-in, el success:true de Brevo, qué campos se mandan y
+  dónde se ven los contactos).

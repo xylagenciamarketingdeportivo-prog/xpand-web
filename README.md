@@ -65,53 +65,52 @@ son del correo y hosting de DonDominio, no de la web.
 
 ## Newsletter (Brevo)
 
-Los emails del formulario de Newsletter se guardan en una lista de contactos de
-[Brevo](https://app.brevo.com). El formulario ya está montado (validación,
-casilla de consentimiento, trampa antispam y mensajes de éxito/error), pero
-**solo se activa cuando hay una URL de Brevo configurada**: mientras
-`BREVO_ENDPOINT` esté vacía en `js/newsletter.js`, el campo y el botón se quedan
-desactivados y el botón sigue diciendo "Próximamente". Es a propósito: es
-preferible eso a un formulario que se traga los emails sin guardarlos.
+**Ya está conectado y recogiendo emails.** Los correos del formulario de
+Newsletter entran en una lista de contactos de [Brevo](https://app.brevo.com),
+en la cuenta "Xpand Your Limits". La web no envía nada: solo da de alta el
+contacto. La newsletter, cuando se lance, se escribe y se manda desde Brevo.
 
-### Activarlo
+Toda la configuración cabe en una línea, la de `BREVO_ENDPOINT` en
+`js/newsletter.js`: es la URL del formulario de suscripción de Brevo, la que
+aparece en el `action="..."` de su código para incrustar (Brevo → Marketing →
+Formularios → el formulario → paso "Compartir" → pestaña "HTML simple"). Si
+algún día se rehace el formulario en Brevo, la URL cambia y hay que pegar aquí
+la nueva; no hay nada más que tocar.
 
-1. En Brevo, **Contactos → Listas → Crear una lista** (p. ej. `Newsletter web`).
-2. **Marketing → Formularios de suscripción → Crear un formulario**. Elige la
-   lista del paso 1. El diseño del formulario de Brevo da igual: la web usa el
-   suyo propio, de Brevo solo se aprovecha la URL a la que se envían los datos.
-3. Al terminar, Brevo da un código para incrustar. Copia la URL del
-   `action="..."`, que tiene esta forma:
-   `https://sibforms.com/serve/MUIFAKExxxxxxxxxxxxxxxxxx`.
-4. Pégala en `js/newsletter.js`, en la primera línea de código:
-   ```js
-   const BREVO_ENDPOINT = 'https://sibforms.com/serve/MUIFAKExxxxxxxxxxxxxxxxxx';
-   ```
-5. `git push` a `main`. En 1-2 minutos el formulario está recogiendo emails.
+Si esa constante se deja vacía, el JS no hace nada: el campo y el botón se
+quedan desactivados y el botón dice "Próximamente". Es a propósito, y es
+preferible a un formulario que acepta emails sin guardarlos. Por eso también es
+el JS —y no el HTML— quien activa los campos: si el JS fallara, el formulario
+queda inerte en vez de tragarse correos.
 
-No hace falta SMTP ni clave de API: la web no envía nada, solo da de alta el
-contacto. La clave de API además no se puede usar aquí, porque en una web
-estática quedaría a la vista de cualquiera.
+No hace falta SMTP ni clave de API. SMTP sirve para enviar emails automáticos
+desde un servidor, que no es el caso. Y una clave de API no se puede usar aquí:
+en una web estática quedaría a la vista de cualquiera que mire el código.
 
-### Detalles que conviene saber
+### Cosas que conviene saber
 
-- **Doble opt-in**: si lo activas en Brevo (recomendado), cada persona recibe un
-  email de confirmación y no entra en la lista hasta que hace clic. Es un email
-  automático de Brevo, no la newsletter: sigues sin enviar nada tú.
-- La web manda el POST "a ciegas" (`mode: 'no-cors'`), porque el navegador no
-  deja leer la respuesta de otro dominio. Si la petición sale, se da el alta por
-  buena. El comprobante de verdad es el email de confirmación y la lista de
-  contactos de Brevo.
+- **Está en simple opt-in** ("Sin e-mail de confirmación" en Brevo): el contacto
+  entra en la lista al instante y no recibe ningún correo. Si algún día se
+  activa el doble opt-in, hay que cambiar el mensaje de éxito de
+  `js/newsletter.js`, que ahora mismo no menciona ningún email de confirmación.
+- **Brevo responde `{"success":true}` a casi todo**: a un email inválido, a uno
+  vacío, a un alta repetida e incluso con la trampa antispam rellena. Su
+  respuesta no vale para validar nada, así que toda la validación real se hace
+  en el navegador. Lo que sí detecta es una URL caducada o mal pegada, que
+  devuelve un 404, y entonces la web muestra el mensaje de error.
 - La casilla de consentimiento **no** se envía a Brevo, solo bloquea el envío
-  hasta que se marca. Si algún día hace falta guardar ese consentimiento como
-  dato del contacto, hay que crear un atributo en Brevo y añadirlo al formulario.
-- Campos que se mandan: `EMAIL`, `locale=es` y `email_address_check` (la trampa
-  antispam de Brevo, que va siempre vacía).
+  hasta que se marca. Para guardarla como dato del contacto habría que crear un
+  atributo en Brevo y añadirlo al formulario.
+- Campos que se mandan: `EMAIL`, `locale=es`, `html_type=simple` y
+  `email_address_check` (la trampa antispam de Brevo, siempre vacía).
+- Los contactos se ven en Brevo → **Contactos**, y desde ahí se exportan o se
+  borran.
 
 ## Pendiente
 
 - [ ] Copy definitivo de cada sección (todo el texto actual es provisional).
-- [ ] Pegar la URL del formulario de Brevo en `js/newsletter.js` para que la
-      Newsletter empiece a recoger emails (pasos arriba, en "Newsletter").
+- [ ] Escribir y lanzar la primera newsletter desde Brevo (el formulario ya
+      está recogiendo emails).
 - [ ] Colaboradores xpertos: Fran y Paula no tienen todavía un descuento o
       ventaja concreta, aunque la intro de la sección los anuncia.
 - [ ] Si me pasas una URL de referencia, ajustamos la estructura/orden de
@@ -119,5 +118,5 @@ estática quedaría a la vista de cualquiera.
 
 Ya resuelto (histórico completo en `progress.txt`): DNS migrado a GitHub Pages,
 landing antigua de Netlify y su repo eliminados, email de contacto real, las 4
-redes sociales enlazadas, Equipo XPAND con 6 atletas reales y Colaboradores con
-2 perfiles reales.
+redes sociales enlazadas, Equipo XPAND con 6 atletas reales, Colaboradores con
+2 perfiles reales y el formulario de Newsletter conectado a Brevo.
