@@ -628,3 +628,16 @@ historial antiguo, solo se añade.
     es el primer sospechoso si Brevo dice que no encuentra un registro.
   - No hay registro DMARC propio.
   - DNS en ns1/ns2.dondominio.com. La web sigue respondiendo 200.
+
+------------------------------------------------------------
+2026-09-17 (6)
+
+- Hecho:
+  [x] El usuario confirma que ha borrado los contactos de prueba de Brevo
+      (prueba.web@xpandyourlimits.es y hola@ejemplo.es, este último creado
+      sin querer por un patrón mal puesto en una de mis pruebas). La lista
+      "Newsletter web" queda limpia.
+  [x] Doble opt-in y buzón propio en el dominio anotados como pendientes en
+      el README, para retomarlos más adelante.
+  [x] Subido a main y publicado en GitHub Pages: la Newsletter empieza a
+      recoger emails en xpandyourlimits.es.

@@ -111,6 +111,17 @@ en una web estática quedaría a la vista de cualquiera que mire el código.
 - [ ] Copy definitivo de cada sección (todo el texto actual es provisional).
 - [ ] Escribir y lanzar la primera newsletter desde Brevo (el formulario ya
       está recogiendo emails).
+- [ ] Doble opt-in: hoy no se puede activar porque Brevo exige tener la cuenta
+      Transaccional activa y la da a mano tras revisar las cuentas nuevas. Hay
+      que pedírselo a su soporte. Cuando esté, se cambia la opción en el
+      formulario de Brevo y se revierte el mensaje de éxito de
+      `js/newsletter.js` para que vuelva a decir "Revisa tu correo para
+      confirmar la suscripción".
+- [ ] Buzón propio en el dominio antes de enviar la newsletter en serio. Hoy
+      `xpandyourlimits.es` no tiene registros MX y el remitente tendría que ser
+      el Gmail de la agencia; Gmail y Yahoo penalizan el correo masivo enviado
+      "desde" una dirección @gmail.com a través de otro proveedor, así que
+      acabaría en spam. Detalles del DNS en `progress.txt`, entrada 2026-09-17 (5).
 - [ ] Colaboradores xpertos: Fran y Paula no tienen todavía un descuento o
       ventaja concreta, aunque la intro de la sección los anuncia.
 - [ ] Si me pasas una URL de referencia, ajustamos la estructura/orden de
