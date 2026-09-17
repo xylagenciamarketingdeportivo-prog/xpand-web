@@ -786,3 +786,51 @@ historial antiguo, solo se añade.
       captcha en los ajustes del formulario.
   [ ] Confirmar que las 3 cuentas de GitHub tienen 2FA (el token no tiene
       permiso para leerlo).
+
+------------------------------------------------------------
+2026-09-17 (10) — CIERRE DE SESIÓN
+
+Resumen de la jornada: la Newsletter quedó conectada a Brevo y funcionando en
+producción, y se reforzó la seguridad del repo y de la web.
+
+EN PRODUCCIÓN AHORA MISMO (xpandyourlimits.es, todo subido a main):
+  - Formulario de Newsletter recogiendo emails en la lista "Newsletter web"
+    de Brevo, en simple opt-in. Validación, casilla RGPD obligatoria, trampa
+    antispam y mensajes de éxito/error.
+  - Rama main protegida (sin force-push ni borrado, también para admins).
+  - CSP y política de referrer en index.html.
+  - Trampa antispam oculta con estilos en línea y versión ?v= en CSS y JS,
+    para que la caché del navegador no vuelva a enseñar la web rota.
+
+POR DÓNDE SEGUIR LA PRÓXIMA VEZ, por orden de importancia:
+  1. DMARC en DonDominio. Sin él, cualquiera puede suplantar correos de
+     @xpandyourlimits.es ante atletas y patrocinadores. Es lo más urgente.
+     TXT en _dmarc -> v=DMARC1; p=reject; rua=mailto:xylagenciamarketing
+     deportivo@gmail.com
+  2. SPF: cambiar el TXT existente a "v=spf1 include:spf.dondominio.com ~all".
+     MODIFICAR el que hay, no crear otro: dos SPF anulan el SPF.
+  3. Captcha en el formulario de Brevo (su endpoint es público y cualquiera
+     puede mandarle altas masivas).
+  4. Confirmar 2FA en las 3 cuentas de GitHub.
+  5. Opcional: Cloudflare gratis delante del dominio, para tener HSTS y
+     protección anti-clickjacking, que GitHub Pages no deja poner.
+  6. Doble opt-in, cuando Brevo active la cuenta transaccional (hay que
+     pedírselo a su soporte). Entonces se revierte el mensaje de éxito de
+     js/newsletter.js al de "Revisa tu correo para confirmar la suscripción".
+  7. Buzón propio en el dominio antes de enviar la newsletter en serio: hoy
+     no hay MX y enviar desde un @gmail.com vía Brevo acaba en spam.
+  8. Copy definitivo de todas las secciones (sigue siendo provisional).
+  9. Descuento o ventaja concreta de los colaboradores (Fran y Paula), que
+     la intro de esa sección anuncia y todavía no existe.
+
+AVISO PARA QUIEN RETOME ESTO:
+  - La cuenta activa de gh en esta máquina se cambió a
+    xylagenciamarketingdeportivo-prog (antes "Adultopedia", que NO tiene
+    permiso de escritura en el repo y provocaba un 403 al hacer push).
+    Para volver: gh auth switch --user Adultopedia
+  - Si se toca el CSS o el JS, hay que subir el número de ?v=20260917 en las
+    tres etiquetas de index.html, o los visitantes seguirán viendo la versión
+    vieja.
+  - Si se añade cualquier script externo (analítica, chat, píxel de Meta),
+    hay que meter su dominio en la CSP de index.html o el navegador lo
+    bloqueará y parecerá que no funciona.
